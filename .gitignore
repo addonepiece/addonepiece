@@ -4,7 +4,7 @@ ehthumbs.db
 Desktop.ini
 
 # Java
-*/.settings/
+/.settings/
 cms/target/
 
 # built application files
