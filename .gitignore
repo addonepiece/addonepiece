@@ -4,8 +4,8 @@ ehthumbs.db
 Desktop.ini
 
 # Java
-/.settings/
-cms/target/
+*/.settings/
+*/target/
 
 # built application files
 *.apk
