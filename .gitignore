@@ -27,6 +27,6 @@ gen/
 # .project
 .DS_Store
 
-# /.metadata/
+/.metadata/
 # /.recommenders/
 /Servers/
