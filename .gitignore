@@ -4,8 +4,8 @@ ehthumbs.db
 Desktop.ini
 
 # Java
-*/.settings/
-*/target/
+# */.settings/
+# */target/
 
 # built application files
 *.apk
@@ -23,10 +23,10 @@ bin/
 gen/
 
 # Eclipse project files
-.classpath
-.project
+# .classpath
+# .project
 .DS_Store
 
-/.metadata/
-/.recommenders/
+# /.metadata/
+# /.recommenders/
 /Servers/
