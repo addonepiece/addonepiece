@@ -5164,3 +5164,12 @@ java.library.path = C:\Windows\system32;C:\Windows\Sun\Java\bin;C:\Windows\syste
 
 !ENTRY org.eclipse.wst.server.discovery 1 0 2017-08-10 08:34:14.594
 !MESSAGE cacheFile=file:/D:/eclipse/configuration/org.eclipse.wst.server.discovery/serverAdapterSitesDetails.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-10 08:52:44.417
+!MESSAGE The artifact jdom:jdom:jar:1.1 has been relocated to org.jdom:jdom:jar:1.1
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-10 08:52:44.482
+!MESSAGE The artifact jdom:jdom:jar:1.1 has been relocated to org.jdom:jdom:jar:1.1
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-08-10 08:52:44.734
+!MESSAGE The artifact jdom:jdom:jar:1.1 has been relocated to org.jdom:jdom:jar:1.1

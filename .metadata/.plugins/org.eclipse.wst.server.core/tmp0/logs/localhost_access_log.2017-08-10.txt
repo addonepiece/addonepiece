@@ -13,3 +13,4 @@
 0:0:0:0:0:0:0:1 - - [10/Aug/2017:08:34:25 +0800] "GET /cms/jslib/jquery-easyui-1.5.2/themes/default/images/layout_arrows.png HTTP/1.1" 200 319
 0:0:0:0:0:0:0:1 - - [10/Aug/2017:08:34:25 +0800] "GET /cms/jslib/jquery-easyui-1.5.2/themes/default/images/blank.gif HTTP/1.1" 200 43
 0:0:0:0:0:0:0:1 - - [10/Aug/2017:08:34:25 +0800] "GET /cms/jslib/jquery-easyui-1.5.2/themes/icons/filesave.png HTTP/1.1" 200 898
+127.0.0.1 - - [10/Aug/2017:08:36:34 +0800] "GET / HTTP/1.1" 404 951
