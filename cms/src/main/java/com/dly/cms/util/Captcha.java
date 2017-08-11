@@ -6,13 +6,6 @@ import java.io.OutputStream;
 import static com.dly.cms.util.Randoms.num;
 import static com.dly.cms.util.Randoms.alpha;
 
-public abstract class Captcha {
-	protected Font font = new Font("Verdana", Font.ITALIC | Font.BOLD, 28);
-	protected int len = 5;
-	protected int width = 150;
-	protected int height = 40;
-	private String chars = null;
-	
 /**
  * <p>
  * 验证码抽象类,暂时不支持中文
@@ -78,7 +71,7 @@ public abstract class Captcha {
 	 * 
 	 * @return Color 随机颜色
 	 */
-   
+
 	protected Color color(int fc, int bc) {
 		if (fc > 255)
 			fc = 255;
@@ -89,10 +82,6 @@ public abstract class Captcha {
 		int b = fc + num(bc - fc);
 		return new Color(r, g, b);
 	}
-
-
-	public abstract String out(OutputStream os);
-	
 
 	/**
 	 * 验证码输出,抽象方法，由子类实现
@@ -107,7 +96,7 @@ public abstract class Captcha {
 	 * 
 	 * @return string
 	 */
-   
+
 	public String text() {
 		return chars;
 	}
