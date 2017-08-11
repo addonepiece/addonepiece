@@ -93,12 +93,10 @@
 						</tr>
 						<tr>
 							<td><input id="inputCheckCode" class="easyui-textbox"
-									data-options="prompt:'验证码',validType:'validate'"
+									data-options="prompt:'验证码',validType:'validValidCode'"
 									iconCls="icon-filter" iconAlign=left
 									style="width: 55%; height: 32px" /> 
-<!-- 								<img src="" alt="" width="56" height="32" align='absMiddle' /> -->
-								<input id="checkCode" class="easyui-textbox"
-									style="width: 56px; height: 32px" /> 
+									<img id="validImg" src="/cms/user/getValidNum.do" alt="" width="56" height="32" align='absMiddle' />
 							   </a>
 							</td>
 						</tr>
@@ -120,21 +118,25 @@
 </body>
 
 <script>
+//点击更换验证码  
+$('#validImg').click(function() {  
+	var timestamp = new Date().getTime();
+    $(this).attr("src", '/cms/user/getValidNum.do?'+ timestamp);
+});  
 
-//产生验证码  
-var code ; //在全局定义验证码   
-//产生验证码  
-$(function(){
-    code = "";   
-    var codeLength = 4;//验证码的长度  
-    var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',  
-    'S','T','U','V','W','X','Y','Z');//随机数  
-    for(var i = 0; i < codeLength; i++) {//循环操作  
-       var index = Math.floor(Math.random()*36);//取得随机数的索引（0~35）  
-       code += random[index];//根据索引取得随机数加到code上  
-   }
-}); 
-	
+// 校验验证码
+$.extend($.fn.validatebox.defaults.rules, {    
+    /*必须和某个字段相等*/  
+    validValidCode: {
+        validator:function(){  
+        	alert(123);
+            return $(param[0]).val() == value;  
+        },  
+        message:'字段不匹配'  
+    }  
+             
+});  
+
 $.extend($.fn.validatebox.defaults.rules, {
     // 混合验证，五个参数：第一个是正则表达式，第二个是错误提示信息，前两个参数用户合法性验证；第三个是调用的url，第四个是传递给服务器的参数名(参数key)，第五个是错误提示信息，第六个参数是当前表单id字段
     complexValid : {
@@ -168,6 +170,8 @@ $.extend($.fn.validatebox.defaults.rules, {
 });
 
 function submitLoginForm(){
+	session.getAttribute("imageCode");
+	alert(session.getAttribute("imageCode"));
   $('#login_form').form('submit',{
     onSubmit:function(){
       return $(this).form('enableValidation').form('validate');
