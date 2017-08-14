@@ -92,13 +92,24 @@
 							</td>
 						</tr>
 						<tr>
-							<td><input id="inputCheckCode" class="easyui-textbox"
+							<!-- <td><input id="inputCheckCode" class="easyui-textbox" required="true"
 									data-options="prompt:'验证码',validType:'validValidCode'"
 									iconCls="icon-filter" iconAlign=left
 									style="width: 55%; height: 32px" /> 
 									<img id="validImg" src="/cms/user/getValidNum.do" alt="" width="56" height="32" align='absMiddle' />
+									<input id = "validCodeInSession" >
 							   </a>
+							</td> -->
+							
+							<td>
+								<input type="hidden" id="validCodeInSession" name="validCodeInSession"></input>
+								<input class="easyui-textbox" type="text" name="inputValidCode"
+									validType="validValidCode['^[0-9a-zA-Z]{4,4}$','验证码为4位字母、数字','user/checkValidCode.do','inputValidCode','验证码输入不正确!','validCodeInSession']"
+									data-options="prompt:'验证码'" iconCls="icon-filter"
+									iconAlign=left style="width: 55%; height: 32px" />
+									<img id="validImg" src="/cms/user/getValidNum.do" alt="" width="56" height="32" align='absMiddle' />
 							</td>
+							
 						</tr>
 					</table>
 				</form>
@@ -125,16 +136,38 @@ $('#validImg').click(function() {
 });  
 
 // 校验验证码
-$.extend($.fn.validatebox.defaults.rules, {    
-    /*必须和某个字段相等*/  
+$.extend($.fn.validatebox.defaults.rules, {
+	// 混合验证，五个参数：第一个是正则表达式，第二个是错误提示信息，前两个参数用户合法性验证；第三个是调用的url，第四个是传递给服务器的参数名(参数key)，第五个是错误提示信息，第六个参数是当前表单id字段
     validValidCode: {
-        validator:function(){  
-        	alert(123);
-            return $(param[0]).val() == value;  
-        },  
-        message:'字段不匹配'  
-    }  
-             
+    	validator: function(value, param) {
+            var m_reg = new RegExp(param[0]);
+            if (!m_reg.test(value)) {
+            	console.log('0');
+                $.fn.validatebox.defaults.rules.validValidCode.message = param[1];//动态设置message提示信息，validValidCode与方法名对应
+                return false;
+            }
+            else {
+            	console.log('1');
+                var postdata = {};
+                postdata[param[3]] = value;  //动态的key和value对应
+                //postdata['id'] = $("#"+param[5]).val();//获取id值
+                var result = $.ajax({
+                    url: param[2],  //动态URL
+                    data: postdata,
+                    async:false,
+                    type: "post"
+                }).responseText;
+                if (result === "Error") {
+                    $.fn.validatebox.defaults.rules.validValidCode.message = param[4];  //动态设置message提示信息，validValidCode与方法名对应
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        },
+	message : ""
+    }       
 });  
 
 $.extend($.fn.validatebox.defaults.rules, {
@@ -165,13 +198,11 @@ $.extend($.fn.validatebox.defaults.rules, {
                }
            }
        },
-    message : ""
+    	message : ""
     }
 });
 
 function submitLoginForm(){
-	session.getAttribute("imageCode");
-	alert(session.getAttribute("imageCode"));
   $('#login_form').form('submit',{
     onSubmit:function(){
       return $(this).form('enableValidation').form('validate');
