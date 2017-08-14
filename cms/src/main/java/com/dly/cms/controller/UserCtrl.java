@@ -2,6 +2,7 @@ package com.dly.cms.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dly.cms.util.ValidImageUtil;
 
@@ -33,6 +35,22 @@ public class UserCtrl {
 		response.setContentType("image/png");
 		OutputStream os = response.getOutputStream();
 		ImageIO.write(image, "png", os);
+	}
+	
+	// 校验验证码
+	@RequestMapping(value = "/checkValidCode.do")
+	public void checkValidCode(@RequestParam(required = false) String inputValidCode, PrintWriter writer, HttpSession session) {
+		if(session.getAttribute("imageCode") == null) {
+			return;
+		}
+		String code = ((String) session.getAttribute("imageCode")).toLowerCase();
+		inputValidCode = inputValidCode.toLowerCase();
+		if(inputValidCode.equals(code)) {
+			session.removeAttribute("imageCode");
+			writer.print("OK");
+		}else {
+			writer.print("Error");
+		}
 	}
 
 }
